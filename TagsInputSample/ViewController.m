@@ -72,7 +72,7 @@
     
     demoTagsControl = [[TLTagsControl alloc]initWithFrame:CGRectMake(8, 340, self.view.frame.size.width - 16, 36)
                                                   andTags:@[@"These", @"Tags", @"Are", @"Tapable"]
-                                      withTagsControlMode:TLTagsControlModeList delegate:self];
+                                      withTagsControlMode:TLTagsControlModeListDelete delegate:self];
     
     [demoTagsControl reloadTagSubviews];
 //    [demoTagsControl setTapDelegate:self];
@@ -87,6 +87,16 @@
 #pragma mark - TLTagsControlDelegate
 - (void)tagsControl:(TLTagsControl *)tagsControl tappedAtIndex:(NSInteger)index {
     NSLog(@"Tag \"%@\" was tapped", tagsControl.tags[index]);
+}
+
+- (void)tagsControl:(TLTagsControl *)tagsControl deleteTappedForTag:(NSObject *)tag
+{
+  [tagsControl removeTag:tag];
+}
+
+- (void)tagsControl:(TLTagsControl *)tagsControl textDidChange:(NSString *)newText
+{
+  
 }
 
 - (NSString *)tagsControl:(TLTagsControl *)tagsConrol titleForTag:(NSObject *)item

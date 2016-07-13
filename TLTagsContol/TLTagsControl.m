@@ -80,7 +80,7 @@
     tagInputField_.backgroundColor = [UIColor whiteColor];
     tagInputField_.delegate = self;
     tagInputField_.font = [UIFont fontWithName:@"HelveticaNeue" size:14];
-    tagInputField_.placeholder = @"tag";
+    tagInputField_.placeholder = (_tagPlaceholder == nil) ? @"tag" : _tagPlaceholder;
     tagInputField_.autocorrectionType = UITextAutocorrectionTypeNo;
     [tagInputField_ addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
 
@@ -110,7 +110,7 @@
         tempViewFrame.origin.y = frame.origin.y;
         view.frame = tempViewFrame;
         
-        if (_mode == TLTagsControlModeList) {
+        if (_mode == TLTagsControlModeList || _mode == TLTagsControlModeListDelete) {
             view.tag = tagIndex;
             
             UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(gestureAction:)];
@@ -123,7 +123,7 @@
         tagIndex++;
     }
     
-    if (_mode == TLTagsControlModeEdit) {
+    if (_mode == TLTagsControlModeEdit || _mode == TLTagsControlModeListDelete) {
         frame = tagInputField_.frame;
         frame.size.height = self.frame.size.height;
         frame.origin.y = 0;
@@ -242,7 +242,7 @@
         tagLabel.clipsToBounds = YES;
         tagLabel.layer.cornerRadius = 5;
         
-        if (_mode == TLTagsControlModeEdit) {
+        if (_mode == TLTagsControlModeEdit || _mode == TLTagsControlModeListDelete) {
             UIButton *deleteTagButton = [[UIButton alloc] initWithFrame:tagInputField_.frame];
             CGRect buttonFrame = deleteTagButton.frame;
             [deleteTagButton.titleLabel setFont:tagInputField_.font];
