@@ -43,10 +43,10 @@
     self = [super initWithFrame:frame];
     
     if (self != nil) {
+        [self setMode:mode];
         [self commonInit];
         self.tapDelegate = delegate;
         [self setTags:[[NSMutableArray alloc]initWithArray:tags]];
-        [self setMode:mode];
     }
     
     return self;
